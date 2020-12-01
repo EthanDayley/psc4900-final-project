@@ -29,3 +29,5 @@ The SRA toolkit was then used to fetch the experimental data by first saving the
 as SraAccList.txt and then running `prefetch --option-file SraAccList.txt -O  raw_data/` to save the SRA
 data files to the raw_data/ directory. Next, the command `fastq-dump -O fastq_runs/ raw_data/*` was used to extract
 fastq files from the downloaded runs.
+
+*NOTE: the accession list is included in this directory as  SraAccList.txt."
