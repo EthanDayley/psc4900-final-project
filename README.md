@@ -8,9 +8,9 @@ The link to the associated BioProject is https://www.ncbi.nlm.nih.gov/bioproject
 The following directory structure is assumed for this project:
 
  ```
- | - raw_data
--| - fastq_runs
- | - results
+| - raw_data
+| - fastq_runs
+| - results
  ```
 
 
