@@ -31,3 +31,12 @@ data files to the raw_data/ directory. Next, the command `fastq-dump -O fastq_ru
 fastq files from the downloaded runs.
 
 *NOTE: the accession list is included in this directory as  SraAccList.txt."*
+
+# 1 - Initial QC
+
+FastQC was used for the initial quality control as follows:
+* The parallel module was loaded with `module load parallel`
+* The appropriate version of FastQC was loaded: `module load fastqc/0.11.9`
+* FastQC was run in parallel on the different runs with the command `parallel "fastqc -o results/1_initial_qc {}" ::: fastq_runs/*.fastq`
+
+
