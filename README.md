@@ -8,10 +8,18 @@ The link to the associated BioProject is https://www.ncbi.nlm.nih.gov/bioproject
 The following directory structure is assumed for this project:
 
  ```
-| - raw_data
-| - fastq_runs
-| - results
- ```
+`-- raw_data
+|-- fastq_runs
+`-- results
+    |--  1_initial_qc
+    |-- 2_trimmed_output
+    |-- 3_rRNA
+    |-- 4_aligned_sequences
+    |-- 5_final_counts
+    |-- 6_multiQC
+    `-- 7_diff_exp
+```
+This directory structure should be included with the repo if you have cloned it.
 
 
 # Data Fetching
