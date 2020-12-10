@@ -32,13 +32,32 @@ fastq files from the downloaded runs.
 
 *NOTE: the accession list is included in this directory as  SraAccList.txt."*
 
+Next we fetched the reference genomes for Mus Musculus with the following commands:
+```
+wget -P genome/ ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M12/GRCm38.p5.genome.fa.gz
+wget -P annotation/ ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M12/gencode.vM12.annotation.gtf.gz
+```bash
+
 # 1 - Initial QC
 
 FastQC was used for the initial quality control as follows:
 * The parallel module was loaded with `module load parallel`
-* The appropriate version of FastQC was loaded: `module load fastqc/0.11.9`
-* FastQC was run in parallel on the different runs with the command `parallel "fastqc -o results/1_initial_qc {}" ::: fastq_runs/*.fastq`
+* The appropriate version of FastQC was loaded: ```module load fastqc/0.11.9```
+* FastQC was run in parallel on the different runs with the command ```parallel "fastqc -o results/1_initial_qc {}" ::: fastq_runs/*.fastq```
 
 # 2 - Trim Sequences
 
+TrimGalore was used for trimming low-quality sequences from the runs with the following command:
+* ```sbatch run_trim_galore.slurm.sh```
 
+# 3 - Remove Ribosomal RNA Fragments
+
+SortMeRNA was used to remove rRNA fragments from our samples.
+First we fetched the SortMeRNA database with the following commands:
+```
+wget -P sortmerna_db https://github.com/biocore/sortmerna/archive/2.1b.zip
+unzip sortmerna_db/2.1b.zip -d sortmerna_db
+mv sortmerna_db/sortmerna-2.1b/rRNA_databases/ sortmerna_db/
+rm sortmerna_db/2.1b.zip
+rm -r sortmerna_db/sortmerna-2.1b
+```bash
