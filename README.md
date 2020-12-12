@@ -63,3 +63,43 @@ mv sortmerna_db/sortmerna-2.1b/rRNA_databases/ sortmerna_db/
 rm sortmerna_db/2.1b.zip
 rm -r sortmerna_db/sortmerna-2.1b
 ```
+
+Next, we ran the slurm batch script _run_sortmerna.slurm.sh_ to filter out the rRNA.
+We then moved the files to their correct places with the following sequence of commands:
+```shell
+cd results/3_trimmed_output/
+mkdir logs
+mv aligned/*.log logs/
+cd ../../
+```
+
+# 4 - Align With STAR
+
+STAR was used to align our sequences. It was run as a slurm script with the following command:
+```bash
+sbatch run_star.slurm.sh
+```
+The files were then moved to the appropriate directory with the following commands:
+```bash
+mkdir results/4_aligned_sequences/aligned_bam
+mv -v *.bam results/4_aligned_sequences/aligned_bam/
+mkdir results/4_aligned_sequences/aligned_logs
+mv -v *.out *.tab results/4_aligned_sequences/aligned_logs/
+```
+
+# 5  - Summarize Gene Counts with FeatureCounts
+
+FeatureCounts was used to summarize gene counts for our samples. This was accomplished with the following set of commands:
+```shell
+cd results/4_aligned_sequences/aligned_bam/
+featureCounts -a ../../../annotation/gencode.vM12.annotation.gtf -o final_counts.txt -g 'gene_name' -T 16 $dirlist
+mv final_counts.txt* ../../5_final_counts/
+cd ../../../
+```
+
+# 6 - Generate Analysis Report with MultiQC
+
+We then used MultiQC to generate an analysis report with the following command:
+```shell
+multiqc results --outdir results/6_multiQC
+```

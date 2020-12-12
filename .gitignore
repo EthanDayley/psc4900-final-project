@@ -1,1 +1,7 @@
 *.swp
+*.bak
+annotation/
+genome/
+slurm_outputs/
+sortmerna_db/
+star_index/
